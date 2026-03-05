@@ -1,0 +1,4 @@
+environment:
+  MYSQL_DATABASE: ${MYSQL_DATABASE}
+  DOMAIN_NAME: ${DOMAIN_NAME}
+
