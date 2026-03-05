@@ -9,7 +9,7 @@ services:
     networks:
       - inception-net
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-u", "wpuser", "-pwppassword", "--silent"]
+      test: ["CMD-SHELL", "mysqladmin ping -u $MYSQL_USER -p$MYSQL_PASSWORD --silent"]
       interval: 5s
       timeout: 3s
       retries: 5
