@@ -4,12 +4,15 @@ services:
     image: mariadb:inception
     container_name: maria-container
     env_file: .env
+    secrets:
+      - mysql_root_pw
+      - mysql_user_pw
     volumes:
       - mariadb-data:/var/lib/mysql
     networks:
       - inception-net
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -u $MYSQL_USER -p$MYSQL_PASSWORD --silent"]
+      test: ["CMD-SHELL", "mysqladmin ping -u $MYSQL_USER -p$$(cat /run/secrets/mysql_user_pw) --silent"]
       interval: 5s
       timeout: 3s
       retries: 5
@@ -19,6 +22,10 @@ services:
     image: wordpress:inception
     container_name: wordpress-container
     env_file: .env
+    secrets:
+      - wp_admin_pw
+      - wp_user_pw
+      - mysql_user_pw
     volumes:
       - wordpress-data:/var/www/html
     networks:
@@ -59,3 +66,13 @@ networks:
   inception-net:
     driver: bridge
     name: inception-net
+
+secrets:
+  mysql_root_pw:
+    file: ../secrets/mysql_root_pw.txt
+  mysql_user_pw:
+    file: ../secrets/mysql_user_pw.txt
+  wp_admin_pw:
+    file: ../secrets/wp_admin_pw.txt
+  wp_user_pw:
+    file: ../secrets/wp_user_pw.txt

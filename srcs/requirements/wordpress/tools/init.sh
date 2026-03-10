@@ -1,5 +1,9 @@
 #!/bin/bash
 
+MYSQL_USER_PASSWORD=$(cat /run/secrets/mysql_user_pw)
+WORDPRESS_ADMIN_PASSWORD=$(cat /run/secrets/wp_admin_pw)
+WORDPRESS_USER_PASSWORD=$(cat /run/secrets/wp_user_pw)
+
 # Check if WordPress is already installed (by checking for wp-config.php)
 if [ ! -f /var/www/html/wp-config.php ]; then
 
@@ -11,7 +15,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --path=/var/www/html \
         --dbname=${MYSQL_DATABASE} \
         --dbuser=${MYSQL_USER} \
-        --dbpass=${MYSQL_PASSWORD} \
+        --dbpass=${MYSQL_USER_PASSWORD} \
         --dbhost=${WORDPRESS_DB_HOST} \
         --allow-root
 
