@@ -39,6 +39,9 @@ services:
     image: nginx:inception
     container_name: nginx-container
     env_file: .env
+    secrets:
+    - inception_crt
+    - inception_key
     ports:
       - "443:443"
     volumes:
@@ -76,3 +79,8 @@ secrets:
     file: ../secrets/wp_admin_pw.txt
   wp_user_pw:
     file: ../secrets/wp_user_pw.txt
+  inception_crt:
+    file: ../secrets/inception.crt
+  inception_key:
+    file: ../secrets/inception.key
+  
