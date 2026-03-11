@@ -16,6 +16,7 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+    restart: unless-stopped
 
   wordpress:
     build: ./requirements/wordpress
@@ -33,6 +34,7 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
+    restart: unless-stopped
 
   nginx:
     build: ./requirements/nginx
@@ -50,6 +52,7 @@ services:
       - inception-net
     depends_on:
       - wordpress
+    restart: unless-stopped
 
 volumes:
   mariadb-data:
