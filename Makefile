@@ -17,6 +17,9 @@ up:
 down:
 	docker compose -f $(COMPOSE_FILE) down
 
+stop:
+	docker compose -f $(COMPOSE_FILE) stop
+
 clean: down
 	sudo rm -rf $(DB_VOLUME_PATH)/*
 	sudo rm -rf $(WP_VOLUME_PATH)/*
@@ -27,4 +30,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all build up down clean fclean re
+.PHONY: all build up down stop clean fclean re
