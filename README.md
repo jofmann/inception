@@ -14,7 +14,7 @@ The infrastructure consists of three core services:
 
 As a bonus, an **FTP server** (vsftpd) is included, providing direct file access to the WordPress volume.
 
-All services communicate over a dedicated Docker bridge network. Persistent data is stored in named volumes mounted to `/home/login/data/` on the host.
+All services communicate over a dedicated Docker bridge network. Persistent data is stored in named volumes mounted to `/home/<login>/data/` on the host.
 
 ### Design Choices
 
@@ -85,9 +85,9 @@ The `secrets/` directory, all passwords, and the SSL certificate are generated a
 
 | Service | URL / Address |
 |---------|--------------|
-| WordPress | `https://login.42.fr` |
-| WordPress Admin | `https://login.42.fr/wp-admin` |
-| FTP | `ftp login.42.fr` (port 21) |
+| WordPress | `https://<DOMAIN_NAME>` |
+| WordPress Admin | `https://<DOMAIN_NAME>/wp-admin` |
+| FTP | `ftp <DOMAIN_NAME>` (port 21) |
 
 ---
 
