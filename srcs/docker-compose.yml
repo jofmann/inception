@@ -54,6 +54,23 @@ services:
       - wordpress
     restart: unless-stopped
 
+  ftp:
+    build: ./requirements/bonus/ftp
+    image: ftp:inception
+    container_name: ftp-container
+    env_file: .env
+    secrets:
+      - ftp_user_password
+    ports:
+      - "21:21"
+      - "21100-21110:21100-21110"
+    volumes:
+      - wordpress-data:/var/www/html
+    networks:
+      - inception-net
+    restart: unless-stopped
+    stop_grace_period: 2s
+
 volumes:
   mariadb-data:
     driver: local
@@ -68,10 +85,12 @@ volumes:
       o: bind
       device: /home/phhofman/data/wordpress
 
+
 networks:
   inception-net:
     driver: bridge
     name: inception-net
+
 
 secrets:
   mysql_root_pw:
@@ -86,4 +105,6 @@ secrets:
     file: ../secrets/inception.crt
   inception_key:
     file: ../secrets/inception.key
+  ftp_user_password:
+    file: ../secrets/ftp_user_pw.txt
   
